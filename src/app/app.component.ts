@@ -31,14 +31,11 @@ export class AppComponent {
 
   getData() {
     this.http.get(environment.apiUrl + '/getAllFiles').subscribe((data) => {
-      console.log(data);
       console.table(data);
       if (Array.isArray(data)) {
         this.data = data;
       }
     });
-
-    console.log('data is now= ' + this.data);
   }
 
   ngOnInit() {
