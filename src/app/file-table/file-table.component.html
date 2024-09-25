@@ -1,0 +1,26 @@
+<mat-table #table [dataSource]="data">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+    <mat-cell *matCellDef="let data"> {{ data.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="size">
+    <mat-header-cell *matHeaderCellDef> Poids </mat-header-cell>
+    <mat-cell *matCellDef="let data"> {{ data.size }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="uploadDate">
+    <mat-header-cell *matHeaderCellDef> Date d'upload </mat-header-cell>
+    <mat-cell *matCellDef="let data"> {{ data.uploadDate }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="download">
+    <mat-header-cell *matHeaderCellDef> Download </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <a href="{{ downloadURL }}/{{ data.id }}">
+        <mat-icon>download</mat-icon>
+      </a>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
