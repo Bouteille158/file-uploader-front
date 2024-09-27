@@ -1,0 +1,16 @@
+<div class="modal-form">
+  <h2>Uploader un fichier</h2>
+  <!-- TODO : Change broken style -->
+  <form #uploadForm="ngForm">
+    <div>
+      <label for="fileInput">Fichier</label>
+      <input
+        id="fileInput"
+        type="file"
+        (change)="onFileSelected($event)"
+        required
+      />
+    </div>
+    <button mat-button type="submit" (click)="closeDialog()">Uploader</button>
+  </form>
+</div>
