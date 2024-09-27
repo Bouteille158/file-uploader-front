@@ -5,3 +5,9 @@ button {
 mat-toolbar {
   background-color: rgba(0, 0, 0, 0.1); /* Fond légèrement plus foncé */
 }
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
