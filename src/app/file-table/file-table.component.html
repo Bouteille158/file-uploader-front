@@ -15,7 +15,10 @@
   <ng-container matColumnDef="download">
     <mat-header-cell *matHeaderCellDef> Download </mat-header-cell>
     <mat-cell *matCellDef="let data">
-      <a href="{{ downloadURL }}/{{ data.id }}">
+      <a
+        href="{{ downloadURL }}/{{ data.id }}"
+        (click)="handleDownload(data.name)"
+      >
         <mat-icon>download</mat-icon>
       </a>
     </mat-cell>

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { RouterOutlet } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-file-table',
@@ -25,6 +26,14 @@ export class FileTableComponent {
   data: fileInfo[] = [];
   displayedColumns = ['name', 'size', 'uploadDate', 'download'];
   downloadURL = environment.apiUrl + '/download';
+
+  private _snackBar = inject(MatSnackBar);
+
+  handleDownload(filename: string) {
+    this._snackBar.open('Téléchargement du fichier ' + filename, 'Fermer', {
+      duration: 5000,
+    });
+  }
 
   getData() {
     this.http.get(environment.apiUrl + '/getAllFiles').subscribe((data) => {
