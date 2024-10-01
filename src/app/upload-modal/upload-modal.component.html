@@ -1,16 +1,32 @@
 <div class="modal-form">
-  <h2>Uploader un fichier</h2>
-  <!-- TODO : Change broken style -->
-  <form #uploadForm="ngForm">
-    <div>
-      <label for="fileInput">Fichier</label>
-      <input
-        id="fileInput"
-        type="file"
-        (change)="onFileSelected($event)"
-        required
-      />
-    </div>
-    <button mat-button type="submit" (click)="closeDialog()">Uploader</button>
-  </form>
+  <h1 mat-dialog-title>Uploader un fichier</h1>
+  <div mat-dialog-content>
+    <p>Choisissez le fichier à uploader :</p>
+    <form [formGroup]="form">
+      <mat-form-field style="width: 100%">
+        <mat-label>Fichier (max : {{ maxSize | byteFormat }})</mat-label>
+        <ngx-mat-file-input
+          formControlName="fileSelector"
+          placeholder="Required input"
+          style="width: 100%"
+          (change)="onFileSelected($event)"
+          required
+        >
+        </ngx-mat-file-input>
+        <mat-icon matSuffix>folder</mat-icon>
+      </mat-form-field>
+      <div mat-dialog-actions style="width: 100%; display: flex">
+        <div style="flex: 1"></div>
+        <button mat-button (click)="onClose()">Cancel</button>
+        <button
+          mat-button
+          (click)="submitDialog()"
+          type="submit"
+          [disabled]="!form.valid"
+        >
+          Upload
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
