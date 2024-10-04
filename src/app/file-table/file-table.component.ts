@@ -1,3 +1,4 @@
+import { FileManipulationService } from './../services/file-manipulation.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
@@ -6,6 +7,9 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterOutlet } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { callbackify } from 'util';
 
 @Component({
   selector: 'app-file-table',
@@ -16,16 +20,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatTableModule,
     MatIcon,
     FileTableComponent,
+    MatDialogModule,
   ],
   templateUrl: './file-table.component.html',
   styleUrl: './file-table.component.scss',
 })
 export class FileTableComponent {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   data: fileInfo[] = [];
-  displayedColumns = ['name', 'size', 'uploadDate', 'download'];
+  displayedColumns = ['name', 'size', 'uploadDate', 'download', 'remove'];
   downloadURL = environment.apiUrl + '/download';
+  removeURL = environment.apiUrl + '/remove';
 
   private _snackBar = inject(MatSnackBar);
 
@@ -47,6 +53,20 @@ export class FileTableComponent {
   ngOnInit() {
     this.getData();
   }
+
+  deletionConfirmationModal(id: String) {
+    this.dialog.open(ConfirmationModalComponent, {
+      data: {
+        title: 'Êtes vous sûr ?',
+        message:
+          "Voulez êtes sur le point de supprimer définitivement l'élément " +
+          id,
+        callback: () => {
+          // this.fileManipulationService.deleteFile(id);
+        },
+      },
+    });
+  }
 }
 
 export interface fileInfo {
@@ -58,3 +78,5 @@ export interface fileInfo {
   uploadDate: Date;
   url: string;
 }
+
+// href="{{ removeURL }}/{{ data.id }}"
