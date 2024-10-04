@@ -24,6 +24,15 @@
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="remove">
+    <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <a (click)="deletionConfirmationModal(data.id)">
+        <mat-icon>delete</mat-icon>
+      </a>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
